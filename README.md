@@ -1,3 +1,5 @@
+[![tests](https://github.com/adela123450/adso_mini_proyectos/actions/workflows/ci.yml/badge.svg?branch=principal)](https://github.com/adela123450/adso_mini_proyectos/actions/workflows/ci.yml)
+
 # Evidencias ADSO — Mini-proyectos contratables (FastAPI)
 
 Este repositorio contiene **2 mini-proyectos** listos para revisión técnica:

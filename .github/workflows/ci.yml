@@ -40,6 +40,7 @@ jobs:
           python - <<'PY'
           import nltk
           nltk.download("punkt", quiet=True)
+          nltk.download("punkt_tab", quiet=True)
           nltk.download("stopwords", quiet=True)
           PY
       - name: Run tests P2

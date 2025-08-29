@@ -18,16 +18,20 @@ jobs:
         with:
           python-version: '3.12'
 
-      # Proyecto 1
+      - name: Upgrade pip
+        run: python -m pip install -U pip
+
+      # Proyecto 1 (API SQLite)
       - name: Install deps P1
         run: |
-          python -m pip install -U pip
           pip install -r 01_api_sqlite/requirements.txt
       - name: Run tests P1
         working-directory: 01_api_sqlite
+        env:
+          PYTHONPATH: .
         run: pytest -q
 
-      # Proyecto 2
+      # Proyecto 2 (NLP)
       - name: Install deps P2
         run: |
           pip install -r 02_nlp_fastapi/requirements.txt
@@ -40,4 +44,6 @@ jobs:
           PY
       - name: Run tests P2
         working-directory: 02_nlp_fastapi
+        env:
+          PYTHONPATH: .
         run: pytest -q

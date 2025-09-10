@@ -9,6 +9,9 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      NLTK_DATA: ${{ github.workspace }}/.nltk_data   # ruta fija para NLTK
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -35,16 +38,24 @@ jobs:
       - name: Install deps P2
         run: |
           pip install -r 02_nlp_fastapi/requirements.txt
+
+      - name: Prepare NLTK data dir
+        run: mkdir -p "${NLTK_DATA}"
+
       - name: Download NLTK data (P2)
         run: |
           python - <<'PY'
-          import nltk
-          nltk.download("punkt", quiet=True)
-          nltk.download("punkt_tab", quiet=True)
-          nltk.download("stopwords", quiet=True)
+          import nltk, os
+          d = os.environ["NLTK_DATA"]
+          nltk.download("punkt", download_dir=d, quiet=True)
+          nltk.download("punkt_tab", download_dir=d, quiet=True)
+          nltk.download("stopwords", download_dir=d, quiet=True)
+          print("NLTK data downloaded to:", d)
           PY
+
       - name: Run tests P2
         working-directory: 02_nlp_fastapi
         env:
           PYTHONPATH: .
+          NLTK_DATA: ${{ env.NLTK_DATA }}
         run: pytest -q
